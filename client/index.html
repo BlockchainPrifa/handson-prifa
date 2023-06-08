@@ -2,61 +2,80 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page Title</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <style>
+        body {
+            font-family: 'Roboto';
+        }
+    </style>
 </head>
 
 <body>
-    <div id="app">
-        <button @click="increment">{{ count }}</button>
+    <div id="app" class="p-10">
         <div class="px-5">
             <!-- <h1>Voting System</h1>
       <div>
         <h4>chairperson: {chairperson}</h4>
       </div> -->
             <!-- Proposal -->
-            <div>
-                <h4>Proposal: </h4>
+            <h1 class="text-center text-3xl font-bold mb-5">Pemilihan Presiden Replubic of The Congo ke 16</h1>
+            <div class="grid grid-cols-6 text-lg">
+                <div class="col-span-4">
+                    <p>Chairperson: </p>
+                    <p class="break-all">{{chairperson}}</p>
+                </div>
+
+                <button @click="reload" class="col-span-2 bg-red-500 my-3 mx-2 rounded">refresh</button>
+            </div>
+            <div class="mx-10 mt-5 text-lg">
+                <h4 class="text-center">Proposal: </h4>
                 <div v-for="(item, index) in proposals">
-                    <h1 class="m-5">{{item[0]}} - {{Number(item[1])}}</h1>
-                    <button @click="voteProposal(index)">Vote</button>
+                    <div class="grid grid-cols-12 items-center bg-red-300 mb-10 rounded">
+                        <p class="m-5 col-span-3 text-center text-xl">id: {{index}}</p>
+                        <p class="m-5 col-span-4 text-center text-xl">{{item[0]}}</p>
+                        <p class="col-span-2 text-center text-3xl">{{Number(item[1])}}</p>
+                        <button class="col-span-3 text-center bg-blue-500 m-2 p-3 rounded text-white" @click="voteProposal(index)">Vote</button>
+                    </div>
                 </div>
             </div>
-            <!-- <div>
-        <h4>proposal:</h4>{' '}
-        <div key={index} class="p-3">
-          🗳 {name} - {Number(voteCount)}
-          <button class="ml-2">
-            Vote
-          </button>
-        </div>
-      </div> -->
 
-            <!-- Add voted -->
-            <!-- <div>
-        <h4>Give right to vote</h4>
-        <p>(only chairman can give vote right)</p>
-        <div>
-          <input value={newVoter} onChange={handleNewVoter} />
-          <button onClick={addNewVoter}>Give right</button>
-        </div>
-      </div> -->
+            <!-- Add Right voted -->
+            <div class="">
+                <div class="flex items-center space-x-2 mb-2">
+                    <p class="text-md font-bold">Give right to vote</p>
+                    <p class="text-sm">(only chairman can give vote right)</p>
+                </div>
+                <div class="flex flex-col space-x-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2 ml-5" for="username">Voter</label>
+                    <div class="flex items-center space-x-4">
+                        <input  v-model="newVoter" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="voter" type="text" placeholder="Add Voter">
+                        <button @click="addNewVoter" class="bg-green-600 rounded w-48 h-10">Tambah Hak</button>
+                    </div>
+                </div>
+            </div>
 
-            <!-- Check voter -->
-            <!-- <div>
-        <h4>Check if an address vote status</h4>
-        <div class="flex justify-between">
-          <input value={voterAddressToCheck} onChange={handleNewAddressToCheckVote} />
-          <button onClick={checkAddressVoter}>Check</button>
-        </div>
-        <div class="pt-2">
-          <h4>Voter Status</h4>
-          <p>Account: {voterAddressToCheck}</p>
-          <p>Voted: {voterStatus?.voted?.toString()}</p>
-          <p>Vote Weight: {Number(voterStatus?.weight?._hex)}</p>
-        </div>
-        {voterStatus === 'An error has occured' && <p>{voterStatus}</p>}
-      </div> -->
+            <!-- Check vote address -->
+            <div class="mt-5">
+                <div class="flex items-center space-x-2 mb-2">
+                    <p class="text-md font-bold">Check if an address vote status</p>
+                </div>
+                <div class="flex flex-col space-x-4">
+                    <div class="flex items-center space-x-4">
+                        <input  v-model="voterAddressToCheck" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="voter" type="text" placeholder="Cek Voter">
+                        <button @click="checkAddressVoter" class="bg-green-600 rounded w-48 h-10">Cek Voter</button>
+                    </div>
+                </div>
+            </div>
+            <div :class="[voterStatus ? 'block' : 'hidden']">
+                <p>Alamat Delagasi: {{voterStatus[2]}} </p>
+                <p>Sudah Vote: {{checkVote}}</p>
+                <p>Pilihan Id: {{Number(voterStatus[3])}} </p>
+            </div>
         </div>
     </div>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
