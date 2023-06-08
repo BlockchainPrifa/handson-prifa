@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Page Title</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="increment">{{ count }}</button>
+        <div class="px-5">
+            <!-- <h1>Voting System</h1>
+      <div>
+        <h4>chairperson: {chairperson}</h4>
+      </div> -->
+            <!-- Proposal -->
+            <div>
+                <h4>Proposal: </h4>
+                <div v-for="(item, index) in proposals">
+                    <h1 class="m-5">{{item[0]}} - {{Number(item[1])}}</h1>
+                    <button @click="voteProposal(index)">Vote</button>
+                </div>
+            </div>
+            <!-- <div>
+        <h4>proposal:</h4>{' '}
+        <div key={index} class="p-3">
+          🗳 {name} - {Number(voteCount)}
+          <button class="ml-2">
+            Vote
+          </button>
+        </div>
+      </div> -->
+
+            <!-- Add voted -->
+            <!-- <div>
+        <h4>Give right to vote</h4>
+        <p>(only chairman can give vote right)</p>
+        <div>
+          <input value={newVoter} onChange={handleNewVoter} />
+          <button onClick={addNewVoter}>Give right</button>
+        </div>
+      </div> -->
+
+            <!-- Check voter -->
+            <!-- <div>
+        <h4>Check if an address vote status</h4>
+        <div class="flex justify-between">
+          <input value={voterAddressToCheck} onChange={handleNewAddressToCheckVote} />
+          <button onClick={checkAddressVoter}>Check</button>
+        </div>
+        <div class="pt-2">
+          <h4>Voter Status</h4>
+          <p>Account: {voterAddressToCheck}</p>
+          <p>Voted: {voterStatus?.voted?.toString()}</p>
+          <p>Vote Weight: {Number(voterStatus?.weight?._hex)}</p>
+        </div>
+        {voterStatus === 'An error has occured' && <p>{voterStatus}</p>}
+      </div> -->
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    <script src="abi.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
