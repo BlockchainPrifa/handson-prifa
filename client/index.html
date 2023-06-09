@@ -30,15 +30,15 @@
                     <p class="break-all">{{chairperson}}</p>
                 </div>
 
-                <button @click="reload" class="col-span-2 bg-red-500 my-3 mx-2 rounded">refresh</button>
+                <button @click="reload" class="col-span-2 bg-red-500 rounded">refresh</button>
             </div>
             <div class="mx-10 mt-5 text-lg">
                 <h4 class="text-center">Proposal: </h4>
                 <div v-for="(item, index) in proposals">
-                    <div class="grid grid-cols-12 items-center bg-red-300 mb-10 rounded">
-                        <p class="m-5 col-span-3 text-center text-xl">id: {{index}}</p>
+                    <div class="grid grid-cols-12 items-center bg-red-300 mb-5 rounded">
+                        <p class="m-5 col-span-3 text-center text-lg">id: {{index}}</p>
                         <p class="m-5 col-span-4 text-center text-xl">{{item[0]}}</p>
-                        <p class="col-span-2 text-center text-3xl">{{Number(item[1])}}</p>
+                        <p class="col-span-2 text-center text-2xl">{{Number(item[1])}}</p>
                         <button class="col-span-3 text-center bg-blue-500 m-2 p-3 rounded text-white" @click="voteProposal(index)">Vote</button>
                     </div>
                 </div>
@@ -47,8 +47,8 @@
             <!-- Add Right voted -->
             <div class="">
                 <div class="flex items-center space-x-2 mb-2">
-                    <p class="text-md font-bold">Give right to vote</p>
-                    <p class="text-sm">(only chairman can give vote right)</p>
+                    <p class="text-md font-bold">Memberikan hak voting</p>
+                    <p class="text-sm">(hanya chairperson)</p>
                 </div>
                 <div class="flex flex-col space-x-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2 ml-5" for="username">Voter</label>
@@ -62,9 +62,10 @@
             <!-- Check vote address -->
             <div class="mt-5">
                 <div class="flex items-center space-x-2 mb-2">
-                    <p class="text-md font-bold">Check if an address vote status</p>
+                    <p class="text-md font-bold">Cek voter status</p>
                 </div>
                 <div class="flex flex-col space-x-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2 ml-5" for="username"></label>
                     <div class="flex items-center space-x-4">
                         <input  v-model="voterAddressToCheck" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="voter" type="text" placeholder="Cek Voter">
                         <button @click="checkAddressVoter" class="bg-green-600 rounded w-48 h-10">Cek Voter</button>
@@ -75,6 +76,20 @@
                 <p>Alamat Delagasi: {{voterStatus[2]}} </p>
                 <p>Sudah Vote: {{checkVote}}</p>
                 <p>Pilihan Id: {{Number(voterStatus[3])}} </p>
+            </div>
+
+            <!-- Mendelegasikan vote -->
+            <div class="mt-5">
+                <div class="flex items-center space-x-2 mb-2">
+                    <p class="text-md font-bold">Delegasikan vote</p>
+                </div>
+                <div class="flex flex-col space-x-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2 ml-5" for="username"></label>
+                    <div class="flex items-center space-x-4">
+                        <input  v-model="delegasiAddressVoter" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="voter" type="text" placeholder="Cek Voter">
+                        <button @click="voteDelegation" class="bg-green-600 rounded w-48 h-10">Submit</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

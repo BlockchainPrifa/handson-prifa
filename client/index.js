@@ -5,6 +5,7 @@ createApp({
         return {
             message: "Hello Vue!",
             contractAddress: "0x6aebD9716a012956F3BaB4e70099E462A5407B63",
+            delegasiAddressVoter: "",
             count: 0,
             token: null,
             newVoter: "",
@@ -56,6 +57,14 @@ createApp({
                 this.voterStatus = "An error has occured";
             }
         },
+        async voteDelegation() {
+            try {
+                const delegasi = await this.token.delegate(this.delegasiAddressVoter);
+                console.log(delegasi)
+            } catch (err) {
+                console.log(err);
+            }
+        },
         async addNewVoter() {
             try {
                 await this.token.giveRightToVote(this.newVoter);
@@ -65,6 +74,10 @@ createApp({
         },
         async reload() {
             this._initEthers()
+            this.delegasiAddressVoter = ""
+            this.voterAddressToCheck = ""
+            this.newVoter = ""
+
         },
     },
     computed: {
